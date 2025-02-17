@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SayItRight</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        body {
+            background-color: #E8F5E9;
+            background-image: url('/api/placeholder/100/100');
+            background-repeat: repeat;
+            background-size: 100px;
+            background-opacity: 0.1;
+        }
+
+        .navbar {
+            background-color: #4CAF50;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            color: white;
+            font-size: 2rem;
+            font-family: 'Comfortaa', cursive;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: transform 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255,255,255,0.2);
+            transform: scale(1.05);
+        }
+
+        .page {
+            display: none;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .hero-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .hero-text {
+            flex: 1;
+            color: #2E7D32;
+            padding: 2rem;
+            background: rgba(255,255,255,0.9);
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .hero-text h1 {
+            font-family: 'Comfortaa', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #1B5E20;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 400px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+        }
+
+        .form-container h2 {
+            color: #1B5E20;
+            font-family: 'Comfortaa', cursive;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2E7D32;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #E8F5E9;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .speech-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            text-align: center;
+            color: #2E7D32;
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .speech-container h2 {
+            font-family: 'Comfortaa', cursive;
+            margin-bottom: 1rem;
+            color: #1B5E20;
+        }
+
+        #speechButton {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            margin: 1.5rem 0;
+            transition: transform 0.3s, background-color 0.3s;
+            box-shadow: 0 4px 15px rgba(76,175,80,0.3);
+        }
+
+        #speechButton:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        #speechText {
+            width: 100%;
+            min-height: 150px;
+            margin-top: 1rem;
+            padding: 1rem;
+            border: 2px solid #E8F5E9;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            resize: vertical;
+        }
+
+        .error-message {
+            color: #f44336;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Decorative elements */
+        .cute-icon {
+            width: 120px;
+            height: 120px;
+            margin: 1rem auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- The rest of your HTML remains the same, but with added images -->
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <img src="/api/placeholder/40/40" alt="Logo" style="border-radius: 50%">
+            SayItRight
+        </a>
+        <div class="nav-links">
+            <a href="#" onclick="showPage('home')">Home</a>
+            <a href="#" onclick="showPage('signup')">Signup</a>
+        </div>
+    </nav>
+
+    <div id="homePage" class="page active">
+        <div class="hero-section">
+            <div class="hero-text">
+                <img src="/api/placeholder/120/120" alt="Cute mascot" class="cute-icon">
+                <h1>You are not different!</h1>
+                <p>We believe everyone deserves the tools to communicate with confidence.</p>
+                <p>Whether you're just beginning or exploring new ways to connect, we're here to support you every step of the way.</p>
+                <p>Our platform is designed to be a welcoming space where you can learn, grow, and express yourself at your own pace.</p>
+                <p>Welcome home—let's learn together.</p>
+            </div>
+            <!-- Rest of the form container remains the same -->
+        </div>
+    </div>
+
+    <!-- Rest of your HTML and JavaScript remains the same -->
+
+</body>
+</html>
