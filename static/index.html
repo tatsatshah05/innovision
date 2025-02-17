@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Speech Trainer</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 50px;
+      }
+      input, button {
+        padding: 10px;
+        font-size: 16px;
+      }
+      #result {
+        margin-top: 20px;
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>AI Speech Trainer</h1>
+    <p>Enter a sentence to improve:</p>
+    <input type="text" id="inputText" placeholder="Enter your sentence here">
+    <button onclick="analyzeText()">Analyze</button>
+    <div id="result"></div>
+
+    <script>
+      async function analyzeText() {
+        const text = document.getElementById("inputText").value;
+        if (!text) return;
+        const response = await fetch("/analyze", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text: text })
+        });
+        const data = await response.json();
+        document.getElementById("result").innerText = "Improved: " + data.improved;
+      }
+    </script>
+  </body>
+</html>
